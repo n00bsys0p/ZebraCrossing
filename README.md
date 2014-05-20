@@ -1,6 +1,6 @@
 <img align="right" src="https://raw.github.com/wiki/ClaireDuSoleil/ZebraCrossing/zxing-logo.png"/>
 
-# ZebraCrossing C++ Port
+# ZebraCrossing C++ Port (Hirocoin edition)
 
 This is a manual port of ZXing to C++. It has been tested on Linux, Mac OS X and Windows.
 

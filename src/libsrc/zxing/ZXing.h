@@ -19,6 +19,7 @@
 
 #ifdef _MSC_VER
 #include <algorithm>
+#include <cmath>
 #endif
 
 #define ZXING_ARRAY_LEN(v) ((int)(sizeof(v)/sizeof(v[0])))

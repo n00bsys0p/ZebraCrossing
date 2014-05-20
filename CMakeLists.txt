@@ -23,6 +23,11 @@ endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/)
 
+# Set -fPIC to ensure portable code - this may cause a harmless warning
+# that it's enabled by default. Also set -s to automatically strip the
+# debug symbols
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -s")
+
 # Suppress MSVC CRT warnings.
 if(MSVC)
     foreach(flag_var CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
@@ -53,7 +58,7 @@ if(WIN32)
     include_directories(SYSTEM "./src/libsrc/win32/zxing/")
 endif()
 include_directories("./src/libsrc/")
-add_library(libzxing STATIC ${LIBZXING_FILES})
+add_library(libzxing SHARED ${LIBZXING_FILES})
 set_target_properties(libzxing PROPERTIES PREFIX "")
 if(!WIN32)
   find_package(Iconv)
@@ -65,11 +70,11 @@ if(!WIN32)
   endif()
 endif()
 
-# Add cli executable.
-file(GLOB_RECURSE ZXING_FILES
-    "./src/cli/src/*.cpp"
-    "./src/cli/src/*.h"
-)
-add_executable(zxing ${ZXING_FILES})
-target_link_libraries(zxing libzxing)
+set(CMAKE_INSTALL_PREFIX /usr)
 
+install(
+    TARGETS
+        libzxing
+    DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/lib
+)
